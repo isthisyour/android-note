@@ -1,0 +1,14 @@
+TextToSpeech toSpeech;
+
+toSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i == TextToSpeech.SUCCESS){
+                    toSpeech.setPitch(1.0f);
+                    toSpeech.setSpeechRate(1.0f);
+                    int result = toSpeech.setLanguage(Locale.CHINESE);
+                }
+            }
+        });
+
+toSpeech.speak(et.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);

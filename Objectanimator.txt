@@ -1,0 +1,20 @@
+alpha	public void setAlpha(float alpha)	改变透明度
+translationX	setTranslationX	                     沿X轴平移
+translationY	setTranslationY	                     沿Y轴平移Y
+scaleX	setScaleX	                                         沿X轴缩放
+scaleY	setScaleY	                                         沿Y轴缩放
+rotationX	setRotationX	                    绕X轴旋转
+rotationY	setRotationY	                    绕Y轴旋转
+rotation	setRotation	                              绕Z轴旋转
+
+ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(btnShow,"rotation",0,360);
+objectAnimator.setDuration(4000);/*动画时间*/
+objectAnimator.setRepeatCount(ObjectAnimator.INFINITE);/*重复次数*/
+translationX.setRepeatMode(ObjectAnimator.RESTART);//动画重复模式
+objectAnimator.start();
+
+
+objectAnimator.pause();/*暂停*/
+objectAnimator.start();/*开始*/
+objectAnimator.resume();/*继续*/
+objectAnimator.stop();/*停止*/

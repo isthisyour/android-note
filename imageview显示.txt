@@ -1,0 +1,16 @@
+
+
+ImageView.setVisibility(View.GONE)，不显示
+
+ImageView.setVisibility(View.VISIBLE);显示
+
+
+android view的setVisibility方法值的意思 ：有三个值
+
+VISIBLE、INVISIBLE、GONE
+
+常量值为VISIBLE意思是可见的
+
+常量值为INVISIBLE，意思是不可见的
+
+常量值为GONE，意思是不可见的，而且不占用布局空间

@@ -1,0 +1,154 @@
+1. 打开或者创建数据库
+
+下面是创建名为“book.db”数据库的代码：
+db=SQLiteDatabase.openOrCreateDatabase("book.db",null);
+参数1 数据库创建的路径
+参数2 一般设置为null就可以了
+
+2.创建表
+编写创建表的SQL语句
+调用SQLiteDatabase的execSQL()方法来执行SQL语句
+下面的代码创建了一张用户表，属性列为：id（主键并且自动增加）、sname（学生姓名）、snumber（学号）
+private void createTable(SQLiteDatabase db){
+//创建表SQL语句
+public static final String CREATE_BOOK = "create table book ("
+            + "id integer primary key autoincrement,  "
+            + "author text, "
+            + "price real, "
+            + "pages integer, "
+            + "name text)";
+//执行SQL语句
+db.execSQL(CREATE_BOOK );
+}
+
+3.插入数据
+
+SQLiteDatabase的insert(String table,String nullColumnHack,ContentValues values)方法，
+
+参数1 表名称，
+参数2 空列的默认值
+参数3 ContentValues类型的一个封装了列名称和列值的Map；
+
+private void insert(SQLiteDatabase db){
+//实例化常量值
+ContentValues cValue = new ContentValues();
+//添加用户名
+cValue.put("sname","xiaoming");
+//添加密码
+cValue.put("snumber","01005");
+//调用insert()方法插入数据
+db.insert("stu_table",null,cValue);
+}
+
+4.删除数据
+①调用SQLiteDatabase的delete(String table,String whereClause,String[] whereArgs)方法
+
+参数1 表名称
+参数2 删除条件
+参数3 删除条件值数组
+
+②编写删除SQL语句，调用SQLiteDatabase的execSQL()方法来执行删除。
+
+private void delete(SQLiteDatabase db) {
+//删除条件
+String whereClause = "id=?";
+//删除条件参数
+String[] whereArgs = {String.valueOf(2)};
+//执行删除
+db.delete("stu_table",whereClause,whereArgs);
+}
+
+5、修改数据
+private void update(SQLiteDatabase db) {  
+//实例化内容值 ContentValues values = new ContentValues();  
+//在values中添加内容  
+values.put("snumber","101003");  
+//修改条件  
+String whereClause = "id=?";  
+//修改添加参数  
+String[] whereArgs={String.valuesOf(1)};  
+//修改  
+db.update("usertable",values,whereClause,whereArgs);  
+}  
+
+6、查询数据
+
+Cursor是一个游标接口，提供了遍历查询结果的方法，如移动指针方法move()，获得列值方法getString()等.
+Cursor游标常用方法
+
+public  Cursor query(String table,String[] columns,String selection,String[]  selectionArgs,String groupBy,String having,String orderBy,String limit);
+
+getCount()//获得总的数据项数
+isFirst()//判断是否第一条记录
+isLast()//判断是否最后一条记录
+moveToFirst()//移动到第一条记录
+moveToLast()//移动到最后一条记录
+move(int offset)//移动到指定记录
+moveToNext()//移动到下一条记录
+moveToPrevious()//移动到上一条记录
+getColumnIndexOrThrow(String  columnName)//根据列名称获得列索引
+getInt(int columnIndex)//获得指定列索引的int类型值
+getString(int columnIndex)//获得指定列缩影的String类型值
+
+
+
+条件查询：
+select 字段  from 表名 where 条件;
+# 例：
+select * from test_table where id > 2;   # 筛选出id大于2的所有字段
+select * from test_table where id > 2 and age<18;   # 筛选出所有id大于2并且年龄小于18的所有字段
+
+模糊查询(like, rlike)
+like 使用%或_来进行模糊查询
+%s 表示任意多个字符
+_表示一个任意字符
+rlike 使用正则表达式来模糊查询
+# 例：
+select * from test_table where name like "小%"  # 查询数据库中小开头的所有信息的所有字段
+select * from test_table where name like "小_"  # 查询数据库中所有小开头的两个字的所有字段
+select * from test_table where name rlkie ".." # 查询数据库的两个字符的所有数据的所有字段
+
+
+android 的四种枚举Context.MODE_PRIVATE
+
+
+Context.MODE_PRIVATE：为默认操作模式，代表该文件是私有数据，只能被应用本身访问，在该模式下，写入的内容会覆盖原文件的内容，如果想把新写入的内容追加到原文件中。可以使用Context.MODE_APPEND
+
+Context.MODE_APPEND：模式会检查文件是否存在，存在就往文件追加内容，否则就创建新文件。
+
+Context.MODE_WORLD_READABLE和Context.MODE_WORLD_WRITEABLE用来控制其他应用是否有权限读写该文件。
+
+MODE_WORLD_READABLE：表示当前文件可以被其他应用读取；
+
+MODE_WORLD_WRITEABLE：表示当前文件可以被其他应用写入。
+
+
+SQLiteOpenHelper类
+
+public class MySQLiteHelper extends SQLiteOpenHelper {
+
+    public static final String CREATE_BOOK = "create table book ("
+            + "id integer primary key autoincrement,  "
+            + "author text, "
+            + "price real, "
+            + "pages integer, "
+            + "name text)";
+
+    private Context mContext;
+
+    public MySQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super (context, name, factory, version);
+        mContext = context;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL (CREATE_BOOK);
+        Toast.makeText(mContext,"创建成功",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+
+    }
+}

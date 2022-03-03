@@ -1,0 +1,9 @@
+cursor = db.query("getfour", null, null, null, null, null, null);
+
+        simpleCursorAdapter = new SimpleCursorAdapter(Listview.this,
+                R.layout.item,
+                cursor,
+                new String[]{"_id", "tem", "hum", "co2", "noises", "time"},
+                new int[]{R.id.id, R.id.tem, R.id.hum, R.id.co2, R.id.noises, R.id.time});
+
+        listview.setAdapter(simpleCursorAdapter);

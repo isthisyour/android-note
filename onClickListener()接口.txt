@@ -1,0 +1,54 @@
+package com.example.peipeng.litepal_demo;
+
+//下面是使用当前类实现onClickListener()接口的方式
+
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import org.litepal.LitePal;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        LitePal.initialize(this);
+        setContentView(R.layout.activity_main);
+        Button create = findViewById(R.id.create_database);//实例化对象
+        Button save = findViewById(R.id.save_data);
+        Button show = findViewById(R.id.show_data);
+        create.setOnClickListener(this);//对该对象设置监听事件
+        save.setOnClickListener(this);
+        show.setOnClickListener(this);
+
+    }
+    @Override
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.create_database:
+                LitePal.getDatabase();
+                break;
+            case R.id.save_data:
+                Album album = new Album();
+                album.setId(1);
+                album.setName("album");
+                album.setPrice(10.99f);
+                album.save();
+                Toast.makeText(MainActivity.this,"this save",Toast.LENGTH_SHORT).show();
+
+            case R.id.show_data:
+                try{
+                    Album album1 = LitePal.find(Album.class,1);
+                    Toast.makeText(MainActivity.this,"the name is "+album1.getName(),Toast.LENGTH_LONG).show();
+                }catch (Exception e){
+                    Toast.makeText(MainActivity.this,"something Wrong",Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+        }
+    }
+}

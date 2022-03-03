@@ -1,0 +1,35 @@
+       Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                handler.postDelayed(this, 5000);
+                //每隔一段时间要重复执行的代码
+                N = N + 1;
+                System.out.println("第" + N + "次执行");
+                editText.setText(""+N);
+                if(N%2==0)
+                    ma.stop();
+                else ma.start();
+            }
+        };
+        handler.postDelayed(runnable, 5000);	//启动计时器
+
+//数据库
+public class MyDatabaseHelper extends SQLiteOpenHelper {
+
+    public MyDatabaseHelper(Context context){
+        super(context, "iteast.db", null, 1);
+    }
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("create table info(id integer primary key autoincrement," +
+                "name varchar(20),price integer)");
+
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+    }
+}

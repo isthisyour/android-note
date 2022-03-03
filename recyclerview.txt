@@ -1,0 +1,45 @@
+public class CapturesAdapter extends RecyclerView.Adapter<CapturesAdapter.ViewHolder> {
+    private final ArrayList<Bitmap> bitmaps;
+
+    public CapturesAdapter(ArrayList<Bitmap> bitmaps) {
+        this.bitmaps = bitmaps;
+    }
+
+//加载子项布局
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+        return new ViewHolder(view);
+    }
+
+//给子项控件赋值
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        if (this.getItemCount() > 0) {
+            viewHolder.getImageView().setImageBitmap(this.bitmaps.get(i));
+        }
+    }
+
+//获取子项长度
+//RecyclerView中实际item的数量
+    @Override
+    public int getItemCount() {
+        return bitmaps.size();
+    }
+//ViewHolder是一个内部类，相当于一个容器，将控件暂时的保存，不用每次都去获取，可以提高代码的运行效率。
+// 它继承自RecyclerView.ViewHolder，在构造函数中要传入一个参数View,一般是RecyclerView的最外层布局，并且在构造函数中获取布局的控件实例。
+
+
+    //用于管理每条项目，方便将数据加载出来
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView imageView;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imageView);
+        }
+
+        public ImageView getImageView() {
+            return imageView;
+        }

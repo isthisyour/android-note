@@ -1,0 +1,7 @@
+onstart 开始
+onResume 恢复
+pause 暂停 ——>跳转到其它activity
+onstop 停止
+start ->Resume 重新开始
+
+销毁 ——>关闭activity or 调用finish

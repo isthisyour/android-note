@@ -1,0 +1,20 @@
+C:\Users\1\AppData\Local\Android\Sdk\tool>semulator.exe @Nexus_4_API_22 -qumu -serial COM5 &
+
+说明：
+
+1 emulator.exe 是android SDK 自带的工具，在 SDK/ tools 目录下
+
+2 Nexus_5X_API 的命名如果不知道直接查看 android studio 的 AVD 管理里
+
+3 请先关闭需要启动的虚拟设备
+
+4 COM1 是已经被检测且存在的设备，查看设备管理里的端口一栏
+
+
+
+
+emulator.exe @Nexus_6_API_25 -scale auto -qemu -serial COM3 &
+
+
+emulator_name是你的模拟器的名称；-scale auto表示自动缩放到合适的尺寸。 
+-qemu -serial COM3，是将COM3映射到模拟器；最后的&是让后台运行！
